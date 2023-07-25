@@ -2,19 +2,21 @@ import { useState, useEffect } from "react"
 import { FormCountry } from "./formComponent"
 import { CountryOptions } from "./countryOptions"
 import { DisplayCountryInfo } from "./countryInfoComponent"
+import { countryType } from "./countryType"
 
 export const CountryComponent = () => {
 
     const [countriesList, setCountriesList] = useState([])
     const [countryInput, setCountryInput] = useState("")
-    const [countrySelected, setCountrySelected] = useState("")
+    const [countrySelected, setCountrySelected] = useState<string | countryType>("");
 
     function setInputValue(inputValue : string): void {
         setCountryInput(inputValue)
     }
 
-    function changeSelectCountry(country) {
+    function changeSelectCountry(country : any) {
         setCountrySelected(country)
+        
     }
 
     useEffect(() => {

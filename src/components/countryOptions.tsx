@@ -1,7 +1,14 @@
-export const CountryOptions = ({inputValue, countriesList, setFunction}) => {
+import { countryType } from "./countryType"
+
+interface CountryOptionsProps {
+    inputValue: string;
+    countriesList : countryType[];
+    setFunction: React.Dispatch<React.SetStateAction<any>>;
+}
+export const CountryOptions : React.FC<CountryOptionsProps>= ({inputValue, countriesList, setFunction}) => {
 
     const filterCountriesList = countriesList
-    .filter(country  => {
+    .filter((country : countryType) => {
         return country.name.common.toLowerCase().includes(inputValue)
     })
 
@@ -13,7 +20,7 @@ export const CountryOptions = ({inputValue, countriesList, setFunction}) => {
             return(<h1 className="text-center">too many matches</h1>)
         }
 
-        const countriesMatchesList = filterCountriesList.map(country => {
+        const countriesMatchesList = filterCountriesList.map((country : countryType)=> {
             return (
                 <li className="flex" key={country.name.common}>
                     <div onClick={() => setFunction(country)} className="flex gap-4 items-center cursor-pointer">

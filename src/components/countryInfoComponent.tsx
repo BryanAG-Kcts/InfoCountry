@@ -1,10 +1,17 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers, faChartArea, faLanguage, faDollarSign, faHashtag} from "@fortawesome/free-solid-svg-icons";
+import { countryType } from "./countryType";
 
-export const DisplayCountryInfo = ({country}) => {
+interface DisplayCountryProps {
+    country : countryType | any;
+}
+
+export const DisplayCountryInfo : React.FC<DisplayCountryProps> = ({country}) => {
     
     if(!country) {
         return("")
+    }else {
+        console.log(country.languages)
     }
 
     return(
@@ -17,7 +24,7 @@ export const DisplayCountryInfo = ({country}) => {
                 <li >
                     <ol className="max-h-56 overflow-y-auto">
                         {
-                            country.idd.suffixes.map(countrySuffix => {
+                            country.idd.suffixes.map((countrySuffix: number) => {
                                 return(
                                     <li className="flex gap-4 items-center" key={countrySuffix}>
                                         <p>{country.idd.root}{countrySuffix}</p>
@@ -47,7 +54,7 @@ export const DisplayCountryInfo = ({country}) => {
                 <li>
                     <ol>
                         {
-                            Object.values(country.languages).map(countryLanguage => {
+                            Object.values(country.languages).map((countryLanguage: any) => {
                                 return(
                                     <li className="flex gap-4 items-center" key={countryLanguage}>
                                         {countryLanguage}
@@ -60,7 +67,7 @@ export const DisplayCountryInfo = ({country}) => {
                 </li>
 
                 <li className="flex gap-4 items-center">
-                    {new Intl.NumberFormat().format(country.area)}
+                    {new Intl.NumberFormat().format(country.area)} km²
                     <FontAwesomeIcon icon={faChartArea} />
                 </li>
 
