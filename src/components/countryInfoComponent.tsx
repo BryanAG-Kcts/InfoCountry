@@ -10,8 +10,6 @@ export const DisplayCountryInfo : React.FC<DisplayCountryProps> = ({country}) =>
     
     if(!country) {
         return("")
-    }else {
-        console.log(country.languages)
     }
 
     return(
@@ -22,11 +20,11 @@ export const DisplayCountryInfo : React.FC<DisplayCountryProps> = ({country}) =>
                 <li className="text-xl">{country.capital}</li>
 
                 <li >
-                    <ol className="max-h-56 overflow-y-auto">
+                    <ol className="overflow-y-auto max-h-56">
                         {
                             country.idd.suffixes.map((countrySuffix: number) => {
                                 return(
-                                    <li className="flex gap-4 items-center" key={countrySuffix}>
+                                    <li className="flex items-center gap-4" key={countrySuffix}>
                                         <p>{country.idd.root}{countrySuffix}</p>
                                         <FontAwesomeIcon icon={faHashtag} />
                                     </li>
@@ -39,14 +37,15 @@ export const DisplayCountryInfo : React.FC<DisplayCountryProps> = ({country}) =>
                 <li>
                     <ol>
                         {
-                            Object.keys(country.currencies).map(countryCurrency => {
+                            country.currencies ?
+                            Object.keys(country.currencies || {}).map(countryCurrency => {
                                 return(
-                                    <li className="flex gap-4 items-center" key={countryCurrency}>
+                                    <li className="flex items-center gap-4" key={countryCurrency}>
                                         {countryCurrency}
                                         <FontAwesomeIcon icon={faDollarSign} />
                                     </li>
                                 )
-                            })
+                            }) : "No currencies"
                         }
                     </ol>
                 </li>
@@ -54,9 +53,10 @@ export const DisplayCountryInfo : React.FC<DisplayCountryProps> = ({country}) =>
                 <li>
                     <ol>
                         {
+                            
                             Object.values(country.languages).map((countryLanguage: any) => {
                                 return(
-                                    <li className="flex gap-4 items-center" key={countryLanguage}>
+                                    <li className="flex items-center gap-4" key={countryLanguage}>
                                         {countryLanguage}
                                         <FontAwesomeIcon icon={faLanguage} />
                                     </li>
@@ -66,12 +66,12 @@ export const DisplayCountryInfo : React.FC<DisplayCountryProps> = ({country}) =>
                     </ol>
                 </li>
 
-                <li className="flex gap-4 items-center">
+                <li className="flex items-center gap-4">
                     {new Intl.NumberFormat().format(country.area)} km²
                     <FontAwesomeIcon icon={faChartArea} />
                 </li>
 
-                <li className="flex gap-4 items-center">
+                <li className="flex items-center gap-4">
                     {new Intl.NumberFormat().format(country.population)}
                     <FontAwesomeIcon icon={faUsers} />
                 </li>
